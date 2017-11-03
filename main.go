@@ -9,11 +9,10 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 
-	"github.com/dchest/uniuri"
 	"github.com/go-redis/redis"
 	"github.com/google/jsonapi"
-	"time"
 )
 
 type Config struct {
@@ -176,7 +175,7 @@ func (env *Env) handleSunPhase(response http.ResponseWriter, request *http.Reque
 		SunsetH, err := strconv.Atoi(astronomy.SunPhase.Sunset.Hour)
 		SunsetM, err := strconv.Atoi(astronomy.SunPhase.Sunset.Minute)
 
-		responseObj := &SunPhaseRespose{ResponseID: uniuri.New(), SunriseH: SunriseH, SunriseM: SunriseM,
+		responseObj := &SunPhaseRespose{ResponseID: cacheKey, SunriseH: SunriseH, SunriseM: SunriseM,
 			SunsetH: SunsetH, SunsetM: SunsetM}
 
 		// Build Response
